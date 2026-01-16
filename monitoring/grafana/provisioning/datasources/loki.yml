@@ -1,0 +1,17 @@
+apiVersion: 1
+
+datasources:
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://loki:3100
+    isDefault: false
+    jsonData:
+      maxLines: 1000
+      derivedFields:
+        - name: CorrelationId
+          matcherRegex: 'CorrelationId="(.+?)"'
+          url: 'logs?search=${value}'
+        - name: TransactionId
+          matcherRegex: 'TransactionId="(.+?)"'
+          url: 'logs?search=${value}'

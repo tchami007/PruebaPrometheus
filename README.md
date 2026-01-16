@@ -1,24 +1,58 @@
-# Aplicación Demo Métricas Prometheus .NET
+# 🔍 PruebaPrometheus - Infraestructura Observable Completa
 
-Esta es una aplicación de demostración que muestra cómo implementar y exponer métricas personalizadas para Prometheus en una API de ASP.NET Core.
+**Aplicación .NET 8 con Logging Estructurado + Métricas + Observabilidad Unificada**
 
-## 🚀 Ejecución
+Demostración de una **stack completo de observabilidad empresarial** que integra:
+- 📝 **Logs Estructurados** con Serilog
+- 📊 **Agregación de Logs** con Grafana Loki
+- 💾 **Almacenamiento S3** con MinIO
+- 📈 **Métricas** con Prometheus
+- 🎯 **Visualización Unificada** con Grafana
+
+---
+
+## ⚡ Quick Start (2 minutos)
+
+### 1. Levantar infraestructura
+```powershell
+docker compose up -d
+```
+
+### 2. Ejecutar aplicación
+```powershell
+dotnet run
+# En otra terminal:
+.\test-api.bat
+```
+
+### 3. Ver observabilidad
+- **Logs:** http://localhost:3000 → Explore → Loki
+- **Métricas:** http://localhost:3000 → Dashboards
+- **MinIO:** http://localhost:9001
+
+**Credenciales Grafana:** `admin` / `admin123`
+
+Ver: [`QUICK-START.md`](QUICK-START.md) para más detalles.
+
+---
+
+## 🚀 Ejecución Completa
 
 ### Prerrequisitos
 - .NET 8 SDK
-- Visual Studio Code o Visual Studio
+- Docker + Docker Compose
+- PowerShell (Windows)
 
 ### Ejecutar la aplicación
-```bash
-cd d:\NET\PruebaPrometheus
+```powershell
+cd D:\NET\PruebaPrometheus
 dotnet restore
 dotnet run
 ```
 
 La aplicación estará disponible en:
-- **API**: https://localhost:7001 o http://localhost:5001
-- **Swagger**: https://localhost:7001/swagger
-- **Métricas Prometheus**: https://localhost:7001/metrics
+- **API**: http://localhost:5000
+- **Metrics**: http://localhost:5000/metrics
 
 ## 📊 Endpoints
 

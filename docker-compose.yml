@@ -32,10 +32,38 @@ services:
       - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
     networks:
       - monitoring
+  
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    entrypoint: sh -c "mkdir -p /monitoring/minio/data && minio server /monitoring/minio --console-address ':9001'"
+    environment:
+      - MINIO_ROOT_USER=loki_user
+      - MINIO_ROOT_PASSWORD=loki_password
+    volumes:
+      - minio_data:/monitoring/minio
+    networks:
+      - monitoring
+
+  loki:
+    image: grafana/loki:3.0.0
+    container_name: loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./monitoring/loki/local-config.yaml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    command: -config.file=/etc/loki/local-config.yaml
+    depends_on:
+      - minio
+    networks:
+      - monitoring
 
 volumes:
   prometheus_data:
   grafana_data:
+  minio_data:
+  loki_data:
 
 networks:
   monitoring:
